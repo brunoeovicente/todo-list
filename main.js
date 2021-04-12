@@ -26,7 +26,14 @@ const removeTodo = (index) => {
 
 const setupAddTodos = () => {
     const button = document.getElementById("btn-new");
-    
+    const input = document.getElementById("new-todo");
+
+    input.addEventListener("keyup", (event)=> {
+        if (event.key === "Enter") {
+            button.click()
+        }
+    })
+
     /*
     button.addEventListener("keyup", function(event) {
         if (event.keyCode === 13) {
@@ -36,10 +43,8 @@ const setupAddTodos = () => {
     */
 
     button.addEventListener ("click", () => {
-        const input = document.getElementById("new-todo");
         addTodo(input.value);
-        document.getElementById("todo-content").value = "";
-        todoContent.innerHTML = "";
+        input.value='';
     })
 }
 
@@ -78,9 +83,16 @@ const newTodoItem = (text="", checked=false) => {
     button.classList = ["btn"];
     button.innerText = "X";
     button.addEventListener ("click", () => {
-        removeTodo(index);
+        const answer = window.confirm("Deseja apagar esta tarefa?");
 
-        /*
+        if (answer===true) {
+            removeTodo(index);
+        } else {
+            return false;
+        }
+    });
+
+    /*
         const Remove = (answer) => {
             alert("Deseja apagar esta tarefa?");
             if (answer==true) {
@@ -91,28 +103,29 @@ const newTodoItem = (text="", checked=false) => {
         }
         */
 
-        /*
-        var answer = window.confirm("Deseja apagar esta tarefa?");
-        var answer;
-        if (answer==true) {
-            removeTodo(index);
-        } else {
-            return false;
-        }
-        */
-
-    });
-
     label.appendChild(input);
     label.appendChild(span);
     li.appendChild(label);
     li.appendChild(button);
-
+    
     todoIndex++;
     
     return li;
 }
 
+/*
+const bool = true;
+
+function f1 () {
+    const bool2 = false;
+    console.log(bool2);
+    function f2 () {
+        console.log(bool);
+        console.log(bool2);
+    }
+}
+
+f1 (); */
 
 
 
